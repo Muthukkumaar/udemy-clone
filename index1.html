@@ -1,0 +1,1141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Online Courses - Learn Anything, On Your Schedule | Udemy Clone</title>
+    <!-- Google Fonts: Poppins & Inter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Poppins:wght@500;600;700&display=swap" rel="stylesheet">
+    <!-- FontAwesome Icons for Udemy Navigation & UI -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        /* CSS RESET & VARIABLES */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --udemy-purple: #a435f0;
+            --udemy-purple-hover: #8710d8;
+            --udemy-dark: #1c1d1f;
+            --udemy-gray-dark: #2d2f31;
+            --udemy-gray-light: #f7f9fa;
+            --udemy-gray-border: #d1d7dc;
+            --udemy-gray-text: #6a6f73;
+            --udemy-badge-bestseller: #eceb98;
+            --udemy-badge-text: #3d3c0a;
+            --udemy-star-gold: #b4690e;
+            --font-primary: 'Inter', sans-serif;
+            --font-heading: 'Poppins', sans-serif;
+        }
+
+        body {
+            font-family: var(--font-primary);
+            color: var(--udemy-dark);
+            background-color: #ffffff;
+            line-height: 1.4;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        ul {
+            list-style: none;
+        }
+
+        button, input {
+            font-family: inherit;
+        }
+
+        /* UTILITY CLASSES */
+        .container {
+            max-width: 1340px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        .badge {
+            display: inline-block;
+            padding: 4px 8px;
+            font-size: 12px;
+            font-weight: 700;
+            border-radius: 2px;
+            text-transform: uppercase;
+        }
+
+        .badge-bestseller {
+            background-color: var(--udemy-badge-bestseller);
+            color: var(--udemy-badge-text);
+        }
+
+        .badge-highest-rated {
+            background-color: #f3ca8c;
+            color: #593d10;
+        }
+
+        /* 1. TOP NAVBAR */
+        .navbar {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            height: 72px;
+            padding: 0 24px;
+            background-color: #ffffff;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.08);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .nav-left {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            flex-grow: 1;
+            max-width: 800px;
+        }
+
+        .logo {
+            font-family: var(--font-heading);
+            font-size: 28px;
+            font-weight: 700;
+            color: var(--udemy-dark);
+            letter-spacing: -1px;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        .logo i {
+            color: var(--udemy-purple);
+            font-size: 24px;
+        }
+
+        .nav-categories-btn {
+            font-size: 14px;
+            font-weight: 500;
+            color: var(--udemy-dark);
+            padding: 10px 12px;
+            cursor: pointer;
+            transition: color 0.2s;
+            white-space: nowrap;
+        }
+
+        .nav-categories-btn:hover {
+            color: var(--udemy-purple);
+        }
+
+        .search-bar {
+            display: flex;
+            align-items: center;
+            background-color: var(--udemy-gray-light);
+            border: 1px solid var(--udemy-dark);
+            border-radius: 999px;
+            padding: 0 16px;
+            height: 46px;
+            flex-grow: 1;
+            margin: 0 12px;
+        }
+
+        .search-bar i {
+            color: var(--udemy-gray-text);
+            font-size: 16px;
+            margin-right: 12px;
+        }
+
+        .search-bar input {
+            border: none;
+            background: transparent;
+            outline: none;
+            width: 100%;
+            font-size: 14px;
+            color: var(--udemy-dark);
+        }
+
+        .search-bar input::placeholder {
+            color: var(--udemy-gray-text);
+        }
+
+        .nav-right {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .nav-link {
+            font-size: 14px;
+            font-weight: 400;
+            padding: 10px 12px;
+            color: var(--udemy-dark);
+            cursor: pointer;
+            white-space: nowrap;
+        }
+
+        .nav-link:hover {
+            color: var(--udemy-purple);
+        }
+
+        .nav-icon-btn {
+            background: none;
+            border: none;
+            font-size: 18px;
+            padding: 10px;
+            cursor: pointer;
+            color: var(--udemy-dark);
+            position: relative;
+            border-radius: 50%;
+        }
+
+        .nav-icon-btn:hover {
+            background-color: var(--udemy-gray-light);
+            color: var(--udemy-purple);
+        }
+
+        .cart-count {
+            position: absolute;
+            top: 4px;
+            right: 4px;
+            background-color: var(--udemy-purple);
+            color: white;
+            font-size: 11px;
+            font-weight: 700;
+            width: 18px;
+            height: 18px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .btn {
+            font-size: 14px;
+            font-weight: 700;
+            padding: 10px 16px;
+            height: 40px;
+            border-radius: 2px;
+            cursor: pointer;
+            transition: all 0.2s;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+        }
+
+        .btn-outline {
+            background: transparent;
+            border: 1px solid var(--udemy-dark);
+            color: var(--udemy-dark);
+        }
+
+        .btn-outline:hover {
+            background-color: rgba(0,0,0,0.04);
+        }
+
+        .btn-dark {
+            background-color: var(--udemy-dark);
+            border: 1px solid var(--udemy-dark);
+            color: white;
+        }
+
+        .btn-dark:hover {
+            background-color: var(--udemy-gray-dark);
+        }
+
+        .btn-icon-only {
+            padding: 10px;
+            border: 1px solid var(--udemy-dark);
+            background: transparent;
+        }
+
+        /* Mobile Hamburger Menu */
+        .mobile-toggle {
+            display: none;
+            font-size: 20px;
+            background: none;
+            border: none;
+            cursor: pointer;
+            color: var(--udemy-dark);
+        }
+
+        /* 2. SUB-NAVBAR CATEGORY MENU BAR */
+        .category-menubar {
+            background-color: #ffffff;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.08);
+            border-top: 1px solid #e8e9eb;
+        }
+
+        .category-list {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            overflow-x: auto;
+            white-space: nowrap;
+            padding: 12px 24px;
+            gap: 20px;
+            scrollbar-width: none; /* Firefox */
+        }
+
+        .category-list::-webkit-scrollbar {
+            display: none; /* Chrome/Safari */
+        }
+
+        .category-item {
+            font-size: 14px;
+            color: var(--udemy-gray-dark);
+            font-weight: 400;
+            cursor: pointer;
+            transition: color 0.2s;
+        }
+
+        .category-item:hover {
+            color: var(--udemy-purple);
+            font-weight: 600;
+        }
+
+        /* 3. HERO BANNER SECTION */
+        .hero-section {
+            padding: 24px 0;
+        }
+
+        .hero-container {
+            position: relative;
+            background-image: linear-gradient(90deg, rgba(28,29,31,0.85) 0%, rgba(28,29,31,0.2) 100%), url('https://images.unsplash.com/photo-1522202176988-66273c2fd55f?auto=format&fit=crop&w=1600&q=80');
+            background-size: cover;
+            background-position: center;
+            height: 400px;
+            display: flex;
+            align-items: center;
+            padding: 0 48px;
+            border-radius: 4px;
+        }
+
+        .hero-card {
+            background-color: #ffffff;
+            padding: 24px;
+            max-width: 440px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.08), 0 4px 12px rgba(0,0,0,0.16);
+            border-radius: 4px;
+        }
+
+        .hero-card h1 {
+            font-family: var(--font-heading);
+            font-size: 32px;
+            line-height: 1.2;
+            margin-bottom: 8px;
+            color: var(--udemy-dark);
+        }
+
+        .hero-card p {
+            font-size: 16px;
+            color: var(--udemy-dark);
+            line-height: 1.4;
+        }
+
+        /* SECTION COMMON HEADER */
+        .section-header {
+            margin-bottom: 20px;
+        }
+
+        .section-title {
+            font-family: var(--font-heading);
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--udemy-dark);
+            margin-bottom: 4px;
+        }
+
+        .section-subtitle {
+            font-size: 16px;
+            color: var(--udemy-gray-text);
+        }
+
+        /* 4 & 6. COURSE CARDS FLEX GRID */
+        .courses-section {
+            padding: 40px 0;
+        }
+
+        .course-grid {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 16px;
+        }
+
+        .course-card {
+            flex: 1 1 calc(25% - 12px); /* 4 Columns layout */
+            min-width: 250px;
+            display: flex;
+            flex-direction: column;
+            cursor: pointer;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .course-card:hover {
+            transform: translateY(-2px);
+        }
+
+        .course-img-wrapper {
+            width: 100%;
+            height: 145px;
+            overflow: hidden;
+            border-radius: 4px;
+            border: 1px solid var(--udemy-gray-border);
+            margin-bottom: 8px;
+            position: relative;
+        }
+
+        .course-img-wrapper img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .course-info {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+            flex-grow: 1;
+        }
+
+        .course-title {
+            font-size: 16px;
+            font-weight: 700;
+            line-height: 1.2;
+            color: var(--udemy-dark);
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+
+        .course-instructor {
+            font-size: 12px;
+            color: var(--udemy-gray-text);
+        }
+
+        .course-rating {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        .rating-score {
+            font-size: 14px;
+            font-weight: 700;
+            color: var(--udemy-star-gold);
+        }
+
+        .rating-stars {
+            color: var(--udemy-star-gold);
+            font-size: 12px;
+        }
+
+        .rating-count {
+            font-size: 12px;
+            color: var(--udemy-gray-text);
+        }
+
+        .course-price {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-top: 4px;
+        }
+
+        .current-price {
+            font-size: 16px;
+            font-weight: 700;
+            color: var(--udemy-dark);
+        }
+
+        .original-price {
+            font-size: 14px;
+            color: var(--udemy-gray-text);
+            text-decoration: line-through;
+        }
+
+        .badge-wrapper {
+            margin-top: 4px;
+        }
+
+        /* 5. RECOMMENDED TOPICS & INTERACTIVE INPUT */
+        .topics-section {
+            padding: 40px 0;
+            background-color: var(--udemy-gray-light);
+            border-top: 1px solid var(--udemy-gray-border);
+            border-bottom: 1px solid var(--udemy-gray-border);
+            margin: 20px 0;
+        }
+
+        .topics-flex {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            margin-bottom: 28px;
+        }
+
+        .topic-pill {
+            background-color: #ffffff;
+            border: 1px solid var(--udemy-gray-border);
+            padding: 12px 20px;
+            font-size: 14px;
+            font-weight: 700;
+            color: var(--udemy-dark);
+            border-radius: 999px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .topic-pill:hover {
+            background-color: #e3e6e8;
+            border-color: var(--udemy-dark);
+        }
+
+        .topic-suggestion-box {
+            background-color: #ffffff;
+            border: 1px solid var(--udemy-gray-border);
+            border-radius: 8px;
+            padding: 24px;
+            max-width: 650px;
+        }
+
+        .topic-suggestion-box h3 {
+            font-size: 16px;
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
+
+        .topic-suggestion-box p {
+            font-size: 14px;
+            color: var(--udemy-gray-text);
+            margin-bottom: 16px;
+        }
+
+        .suggestion-form {
+            display: flex;
+            gap: 12px;
+        }
+
+        .suggestion-form input {
+            flex-grow: 1;
+            padding: 10px 16px;
+            border: 1px solid var(--udemy-dark);
+            border-radius: 2px;
+            font-size: 14px;
+            outline: none;
+        }
+
+        /* 7. FEATURES / TRUST BANNER */
+        .features-section {
+            padding: 50px 0;
+            text-align: center;
+        }
+
+        .features-grid {
+            display: flex;
+            justify-content: space-around;
+            flex-wrap: wrap;
+            gap: 24px;
+            margin-top: 24px;
+        }
+
+        .feature-item {
+            flex: 1 1 250px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 12px;
+            padding: 16px;
+        }
+
+        .feature-icon-wrapper {
+            width: 64px;
+            height: 64px;
+            background-color: #f7f9fa;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 28px;
+            color: var(--udemy-dark);
+        }
+
+        .feature-item h4 {
+            font-size: 18px;
+            font-weight: 700;
+        }
+
+        .feature-item p {
+            font-size: 14px;
+            color: var(--udemy-gray-text);
+        }
+
+        /* 8. FOOTER */
+        .footer {
+            background-color: var(--udemy-dark);
+            color: #ffffff;
+            padding: 48px 0 32px 0;
+            font-size: 14px;
+        }
+
+        .footer-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-bottom: 32px;
+            border-bottom: 1px solid var(--udemy-gray-dark);
+            margin-bottom: 32px;
+        }
+
+        .footer-cta-text {
+            font-size: 18px;
+            font-weight: 700;
+        }
+
+        .footer-links-grid {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            gap: 32px;
+            margin-bottom: 48px;
+        }
+
+        .footer-col {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            min-width: 180px;
+        }
+
+        .footer-col a {
+            color: #ffffff;
+            font-size: 14px;
+            transition: opacity 0.2s;
+        }
+
+        .footer-col a:hover {
+            text-decoration: underline;
+            opacity: 0.8;
+        }
+
+        .footer-bottom {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 16px;
+        }
+
+        .footer-logo {
+            font-family: var(--font-heading);
+            font-size: 24px;
+            font-weight: 700;
+            color: #ffffff;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .copyright-text {
+            font-size: 12px;
+            color: #ffffff;
+        }
+
+        /* TOAST NOTIFICATION */
+        .toast-message {
+            position: fixed;
+            bottom: 24px;
+            right: 24px;
+            background-color: var(--udemy-dark);
+            color: white;
+            padding: 12px 24px;
+            border-radius: 4px;
+            font-size: 14px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+            display: none;
+            z-index: 2000;
+        }
+
+        /* RESPONSIVE DESIGN (MEDIA QUERIES) */
+        @media (max-width: 1024px) {
+            .course-card {
+                flex: 1 1 calc(33.333% - 12px); /* 3 columns */
+            }
+        }
+
+        @media (max-width: 768px) {
+            .nav-link, .nav-categories-btn {
+                display: none;
+            }
+
+            .mobile-toggle {
+                display: block;
+            }
+
+            .search-bar {
+                margin: 0;
+            }
+
+            .hero-container {
+                height: 300px;
+                padding: 0 20px;
+            }
+
+            .hero-card {
+                max-width: 100%;
+            }
+
+            .course-card {
+                flex: 1 1 calc(50% - 12px); /* 2 columns */
+            }
+
+            .footer-links-grid {
+                flex-direction: column;
+                gap: 16px;
+            }
+
+            .footer-top {
+                flex-direction: column;
+                gap: 16px;
+                align-items: flex-start;
+            }
+
+            .suggestion-form {
+                flex-direction: column;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .course-card {
+                flex: 1 1 100%; /* 1 column */
+            }
+
+            .hero-card h1 {
+                font-size: 22px;
+            }
+
+            .hero-card p {
+                font-size: 14px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- 1. NAVBAR SECTION -->
+    <header class="navbar">
+        <button class="mobile-toggle" aria-label="Toggle navigation menu">
+            <i class="fa-solid fa-bars"></i>
+        </button>
+
+        <div class="nav-left">
+            <a href="#" class="logo">
+                <i class="fa-solid fa-play-circle"></i>udemy
+            </a>
+            <span class="nav-categories-btn">Categories</span>
+            
+            <div class="search-bar">
+                <i class="fa-solid fa-magnifying-glass"></i>
+                <input type="text" placeholder="Search for anything (e.g. Web Development, Python, Business...)">
+            </div>
+        </div>
+
+        <div class="nav-right">
+            <span class="nav-link">Udemy Business</span>
+            <span class="nav-link">Teach on Udemy</span>
+            <span class="nav-link">My Learning</span>
+            
+            <button class="nav-icon-btn" title="Wishlist">
+                <i class="fa-regular fa-heart"></i>
+            </button>
+            
+            <button class="nav-icon-btn" title="Cart">
+                <i class="fa-solid fa-cart-shopping"></i>
+                <span class="cart-count">2</span>
+            </button>
+
+            <button class="btn btn-outline">Log in</button>
+            <button class="btn btn-dark">Sign up</button>
+            <button class="btn btn-outline btn-icon-only" title="Select Language">
+                <i class="fa-solid fa-globe"></i>
+            </button>
+        </div>
+    </header>
+
+    <!-- 2. CATEGORY SUB-NAVBAR -->
+    <nav class="category-menubar">
+        <div class="category-list">
+            <span class="category-item">Development</span>
+            <span class="category-item">Business</span>
+            <span class="category-item">Finance & Accounting</span>
+            <span class="category-item">IT & Software</span>
+            <span class="category-item">Office Productivity</span>
+            <span class="category-item">Personal Development</span>
+            <span class="category-item">Design</span>
+            <span class="category-item">Marketing</span>
+            <span class="category-item">Health & Fitness</span>
+            <span class="category-item">Music</span>
+        </div>
+    </nav>
+
+    <!-- MAIN CONTENT -->
+    <main>
+        <!-- 3. BANNER / HERO SECTION -->
+        <section class="hero-section container">
+            <div class="hero-container">
+                <div class="hero-card">
+                    <h1>Skills that set you apart</h1>
+                    <p>Learn from real-world experts with courses starting at $13.99. Expand your career opportunities today.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- 4. RECOMMENDED COURSES SECTION -->
+        <section class="courses-section container">
+            <div class="section-header">
+                <h2 class="section-title">Students are viewing</h2>
+                <p class="section-subtitle">Hand-picked courses recommended for you</p>
+            </div>
+
+            <div class="course-grid">
+                <!-- Course Card 1 -->
+                <div class="course-card">
+                    <div class="course-img-wrapper">
+                        <img src="https://images.unsplash.com/photo-1587620962725-abab7fe55159?auto=format&fit=crop&w=600&q=80" alt="Web Development Course">
+                    </div>
+                    <div class="course-info">
+                        <h3 class="course-title">The Complete 2026 Web Development Bootcamp</h3>
+                        <p class="course-instructor">Dr. Angela Yu, Developer Expert</p>
+                        <div class="course-rating">
+                            <span class="rating-score">4.8</span>
+                            <div class="rating-stars">
+                                <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star-half-stroke"></i>
+                            </div>
+                            <span class="rating-count">(342,120)</span>
+                        </div>
+                        <div class="course-price">
+                            <span class="current-price">$13.99</span>
+                            <span class="original-price">$84.99</span>
+                        </div>
+                        <div class="badge-wrapper">
+                            <span class="badge badge-bestseller">Bestseller</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Course Card 2 -->
+                <div class="course-card">
+                    <div class="course-img-wrapper">
+                        <img src="https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?auto=format&fit=crop&w=600&q=80" alt="Python Masterclass">
+                    </div>
+                    <div class="course-info">
+                        <h3 class="course-title">100 Days of Code: The Complete Python Pro Bootcamp</h3>
+                        <p class="course-instructor">Jose Portilla, Head of Data Science</p>
+                        <div class="course-rating">
+                            <span class="rating-score">4.7</span>
+                            <div class="rating-stars">
+                                <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star-half-stroke"></i>
+                            </div>
+                            <span class="rating-count">(215,890)</span>
+                        </div>
+                        <div class="course-price">
+                            <span class="current-price">$14.99</span>
+                            <span class="original-price">$79.99</span>
+                        </div>
+                        <div class="badge-wrapper">
+                            <span class="badge badge-bestseller">Bestseller</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Course Card 3 -->
+                <div class="course-card">
+                    <div class="course-img-wrapper">
+                        <img src="https://images.unsplash.com/photo-1633356122544-f134324a6cee?auto=format&fit=crop&w=600&q=80" alt="React Course">
+                    </div>
+                    <div class="course-info">
+                        <h3 class="course-title">React - The Complete Guide 2026 (incl. Next.js, Redux)</h3>
+                        <p class="course-instructor">Maximilian Schwarzmüller</p>
+                        <div class="course-rating">
+                            <span class="rating-score">4.9</span>
+                            <div class="rating-stars">
+                                <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+                            </div>
+                            <span class="rating-count">(198,450)</span>
+                        </div>
+                        <div class="course-price">
+                            <span class="current-price">$13.99</span>
+                            <span class="original-price">$89.99</span>
+                        </div>
+                        <div class="badge-wrapper">
+                            <span class="badge badge-highest-rated">Highest Rated</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Course Card 4 -->
+                <div class="course-card">
+                    <div class="course-img-wrapper">
+                        <img src="https://images.unsplash.com/photo-1507238691740-187a5b1d37b8?auto=format&fit=crop&w=600&q=80" alt="UI/UX Design Masterclass">
+                    </div>
+                    <div class="course-info">
+                        <h3 class="course-title">User Experience Design Essentials - Adobe XD UI/UX Design</h3>
+                        <p class="course-instructor">Daniel Walter Scott</p>
+                        <div class="course-rating">
+                            <span class="rating-score">4.6</span>
+                            <div class="rating-stars">
+                                <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star-half-stroke"></i>
+                            </div>
+                            <span class="rating-count">(89,320)</span>
+                        </div>
+                        <div class="course-price">
+                            <span class="current-price">$15.99</span>
+                            <span class="original-price">$74.99</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 5. RECOMMENDED TOPICS SECTION -->
+        <section class="topics-section">
+            <div class="container">
+                <div class="section-header">
+                    <h2 class="section-title">Topics recommended for you</h2>
+                </div>
+
+                <div class="topics-flex">
+                    <button class="topic-pill">Python</button>
+                    <button class="topic-pill">Web Development</button>
+                    <button class="topic-pill">Data Science</button>
+                    <button class="topic-pill">AWS Certified Solutions Architect</button>
+                    <button class="topic-pill">React JS</button>
+                    <button class="topic-pill">Java</button>
+                    <button class="topic-pill">UI/UX Design</button>
+                    <button class="topic-pill">Financial Modeling</button>
+                    <button class="topic-pill">Digital Marketing</button>
+                </div>
+
+                <!-- Interactive Topic Suggestion Input -->
+                <div class="topic-suggestion-box">
+                    <h3>Can't find a topic you want to learn?</h3>
+                    <p>Suggest a new topic to our instructors and we'll notify you when new courses launch!</p>
+                    <form class="suggestion-form" onsubmit="handleSuggestion(event)">
+                        <input type="text" id="topicInput" placeholder="Enter topic name (e.g. Rust, AI Agents, Devops...)" required>
+                        <button type="submit" class="btn btn-dark">Suggest Topic</button>
+                    </form>
+                </div>
+            </div>
+        </section>
+
+        <!-- 6. POPULAR COURSES SECTION -->
+        <section class="courses-section container">
+            <div class="section-header">
+                <h2 class="section-title">Popular & Top Rated Courses</h2>
+                <p class="section-subtitle">Learners are giving these high marks</p>
+            </div>
+
+            <div class="course-grid">
+                <!-- Popular Card 1 -->
+                <div class="course-card">
+                    <div class="course-img-wrapper">
+                        <img src="https://images.unsplash.com/photo-1516321318423-f06f85e504b3?auto=format&fit=crop&w=600&q=80" alt="AWS Cloud Practitioner">
+                    </div>
+                    <div class="course-info">
+                        <h3 class="course-title">Ultimate AWS Certified Cloud Practitioner CLF-C02</h3>
+                        <p class="course-instructor">Stephane Maarek | AWS Certified</p>
+                        <div class="course-rating">
+                            <span class="rating-score">4.8</span>
+                            <div class="rating-stars">
+                                <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star-half-stroke"></i>
+                            </div>
+                            <span class="rating-count">(165,400)</span>
+                        </div>
+                        <div class="course-price">
+                            <span class="current-price">$13.99</span>
+                            <span class="original-price">$84.99</span>
+                        </div>
+                        <div class="badge-wrapper">
+                            <span class="badge badge-bestseller">Bestseller</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Popular Card 2 -->
+                <div class="course-card">
+                    <div class="course-img-wrapper">
+                        <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=600&q=80" alt="Data Science Bootcamp">
+                    </div>
+                    <div class="course-info">
+                        <h3 class="course-title">The Data Science Course 2026: Complete Data Science Bootcamp</h3>
+                        <p class="course-instructor">365 Careers Team</p>
+                        <div class="course-rating">
+                            <span class="rating-score">4.7</span>
+                            <div class="rating-stars">
+                                <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star-half-stroke"></i>
+                            </div>
+                            <span class="rating-count">(142,310)</span>
+                        </div>
+                        <div class="course-price">
+                            <span class="current-price">$16.99</span>
+                            <span class="original-price">$94.99</span>
+                        </div>
+                        <div class="badge-wrapper">
+                            <span class="badge badge-bestseller">Bestseller</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Popular Card 3 -->
+                <div class="course-card">
+                    <div class="course-img-wrapper">
+                        <img src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=600&q=80" alt="Digital Marketing">
+                    </div>
+                    <div class="course-info">
+                        <h3 class="course-title">The Complete Digital Marketing Course - 12 Courses in 1</h3>
+                        <p class="course-instructor">Rob Percival, Daragh Walsh</p>
+                        <div class="course-rating">
+                            <span class="rating-score">4.6</span>
+                            <div class="rating-stars">
+                                <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star-half-stroke"></i>
+                            </div>
+                            <span class="rating-count">(172,900)</span>
+                        </div>
+                        <div class="course-price">
+                            <span class="current-price">$13.99</span>
+                            <span class="original-price">$79.99</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Popular Card 4 -->
+                <div class="course-card">
+                    <div class="course-img-wrapper">
+                        <img src="https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?auto=format&fit=crop&w=600&q=80" alt="MBA Business Course">
+                    </div>
+                    <div class="course-info">
+                        <h3 class="course-title">An Entire MBA in 1 Course: Award Winning Business School Prof</h3>
+                        <p class="course-instructor">Chris Haroun, Venture Capitalist</p>
+                        <div class="course-rating">
+                            <span class="rating-score">4.7</span>
+                            <div class="rating-stars">
+                                <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star-half-stroke"></i>
+                            </div>
+                            <span class="rating-count">(94,200)</span>
+                        </div>
+                        <div class="course-price">
+                            <span class="current-price">$18.99</span>
+                            <span class="original-price">$99.99</span>
+                        </div>
+                        <div class="badge-wrapper">
+                            <span class="badge badge-highest-rated">Highest Rated</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 7. TRUST / FEATURES SECTION -->
+        <section class="features-section container">
+            <div class="section-header">
+                <h2 class="section-title">Why learn with Udemy?</h2>
+            </div>
+            <div class="features-grid">
+                <div class="feature-item">
+                    <div class="feature-icon-wrapper">
+                        <i class="fa-solid fa-circle-play"></i>
+                    </div>
+                    <h4>Learn at your own pace</h4>
+                    <p>Enjoy lifetime access to courses on Udemy website or mobile app.</p>
+                </div>
+                <div class="feature-item">
+                    <div class="feature-icon-wrapper">
+                        <i class="fa-solid fa-user-tie"></i>
+                    </div>
+                    <h4>Learn from experts</h4>
+                    <p>Find the right instructor for you with verified student reviews.</p>
+                </div>
+                <div class="feature-item">
+                    <div class="feature-icon-wrapper">
+                        <i class="fa-solid fa-award"></i>
+                    </div>
+                    <h4>Certificates of completion</h4>
+                    <p>Earn a recognized certificate upon finishing any paid course.</p>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- 8. FOOTER SECTION -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-top">
+                <span class="footer-cta-text">Top companies trust Udemy to in-demand skills.</span>
+                <button class="btn btn-outline" style="color: white; border-color: white;">Udemy Business</button>
+            </div>
+
+            <div class="footer-links-grid">
+                <div class="footer-col">
+                    <a href="#">Udemy Business</a>
+                    <a href="#">Teach on Udemy</a>
+                    <a href="#">Get the app</a>
+                    <a href="#">About us</a>
+                    <a href="#">Contact us</a>
+                </div>
+                <div class="footer-col">
+                    <a href="#">Careers</a>
+                    <a href="#">Blog</a>
+                    <a href="#">Help and Support</a>
+                    <a href="#">Affiliate</a>
+                    <a href="#">Investors</a>
+                </div>
+                <div class="footer-col">
+                    <a href="#">Terms</a>
+                    <a href="#">Privacy policy</a>
+                    <a href="#">Cookie settings</a>
+                    <a href="#">Sitemap</a>
+                    <a href="#">Accessibility statement</a>
+                </div>
+            </div>
+
+            <div class="footer-bottom">
+                <a href="#" class="footer-logo">
+                    <i class="fa-solid fa-play-circle" style="color: var(--udemy-purple);"></i>udemy
+                </a>
+                <button class="btn btn-outline" style="color: white; border-color: white;">
+                    <i class="fa-solid fa-globe"></i> English
+                </button>
+                <p class="copyright-text">© 2026 Udemy, Inc. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Interactive Toast Message -->
+    <div id="toast" class="toast-message">Topic suggestion submitted successfully!</div>
+
+    <script>
+        function handleSuggestion(e) {
+            e.preventDefault();
+            const input = document.getElementById('topicInput');
+            const toast = document.getElementById('toast');
+            
+            if (input.value.trim() !== '') {
+                toast.textContent = `Thank you! Topic "${input.value}" has been submitted for review.`;
+                toast.style.display = 'block';
+                input.value = '';
+                
+                setTimeout(() => {
+                    toast.style.display = 'none';
+                }, 4000);
+            }
+        }
+    </script>
+</body>
+</html>
